@@ -375,7 +375,297 @@
     </div>
 
     
+  <title>Shop Movies</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .header {
+      background-color: white;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 10px 0;
+    }
+    
+    .shop-title {
+      color: #333;
+      text-align: left;
+      padding-left: 20px;
+      font-weight: bold;
+      border-right: 2px solid red;
+      display: inline-block;
+      padding-right: 20px;
+    }
+    
+    .movie-container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 10px;
+      position: relative;
+    }
+    
+    .movie-item {
+      width: 180px;
+      margin: 10px;
+    }
+    
+    .movie-poster {
+      width: 100%;
+      height: 120px;
+      background-color: #4a4f54;
+    }
+    
+    .movie-info {
+      padding: 5px;
+      background-color: #f5f5f5;
+    }
+    
+    .movie-title {
+      font-size: 12px;
+      color: #333;
+    }
+    
+    .movie-year {
+      font-size: 12px;
+      color: #777;
+      float: left;
+    }
+    
+    .movie-price {
+      font-size: 12px;
+      color: red;
+      float: right;
+    }
+    
+    .clearfix::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+    
+    .highlighted-movie {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 340px;
+      height: 400px;
+    }
+    
+    .highlighted-poster {
+      width: 100%;
+      height: 280px;
+      position: relative;
+    }
+    
+    .highlighted-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background-color: rgba(217, 30, 24, 0.8);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .play-button-triangle {
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 15px solid white;
+      margin-left: 3px;
+    }
+    
+    .highlighted-info {
+      background-color: black;
+      color: white;
+      padding: 15px;
+      height: 120px;
+    }
+    
+    .highlighted-title {
+      color: #d91e18;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    
+    .highlighted-description {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    
+    .highlighted-details {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .highlighted-release, .highlighted-genre, .highlighted-price {
+      font-size: 12px;
+    }
+    
+    .nav-arrows {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 10;
+    }
+    
+    .arrow {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      text-align: center;
+      line-height: 20px;
+      cursor: pointer;
+    }
+    
+    .new-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #ff8c00;
+      padding: 2px 5px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+    
+    .storks-poster {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="shop-title">SHOP MOVIES</div>
+  </div>
+  
+  <div class="movie-container">
+    <div class="nav-arrows">
+      <span class="arrow">◀</span>
+      <span class="arrow">▶</span>
+    </div>
+    
+    <div class="movie-item">
+      <div class="movie-poster"></div>
+      <div class="movie-info clearfix">
+        <div class="movie-title">Swiss Army Man</div>
+        <div class="movie-year">2016</div>
+        <div class="movie-price">15 Euro</div>
+      </div>
+    </div>
+    
+    <div class="movie-item">
+      <div class="movie-poster"></div>
+      <div class="movie-info clearfix">
+        <div class="movie-title">Me Before You</div>
+        <div class="movie-year">2016</div>
+        <div class="movie-price">15 Euro</div>
+      </div>
+    </div>
+    
+    <div class="movie-item">
+      <div class="movie-poster"></div>
+      <div class="movie-info clearfix">
+        <div class="movie-title">Deadpool</div>
+        <div class="movie-year">2016</div>
+      </div>
+    </div>
+    
+    <div class="movie-item">
+      <div class="movie-poster"></div>
+      <div class="movie-info clearfix">
+        <div class="movie-title">Rogue One</div>
+        <div class="movie-year">2016</div>
+      </div>
+    </div>
+    
+    <div class="movie-item">
+      <div class="storks-poster movie-poster">
+        <img src="/api/placeholder/180/120" alt="Storks movie">
+        <div class="new-tag">NEW</div>
+      </div>
+      <div class="movie-info clearfix">
+        <div class="movie-title">Storks</div>
+        <div class="movie-year">2016</div>
+        <div class="movie-price">15 Euro</div>
+      </div>
+    </div>
+    
+    <div class="movie-item">
+      <div class="movie-poster"></div>
+      <div class="movie-info clearfix">
+        <div class="movie-title">Hopeless</div>
+        <div class="movie-year">2016</div>
+      </div>
+    </div>
+    
+    <div class="movie-item">
+      <div class="movie-poster"></div>
+      <div class="movie-info clearfix">
+        <div class="movie-title">Mechanic</div>
+        <div class="movie-year">2016</div>
+      </div>
+    </div>
+    
+    <div class="movie-item">
+      <div class="movie-poster"></div>
+      <div class="movie-info clearfix">
+        <div class="movie-title">Timeless</div>
+        <div class="movie-year">2016</div>
+      </div>
+    </div>
+    
+    <div class="highlighted-movie">
+      <div class="highlighted-poster">
+        <img src="/api/placeholder/340/280" alt="Storks">
+        <div class="play-button">
+          <div class="play-button-triangle"></div>
+        </div>
+      </div>
+      <div class="highlighted-info">
+        <div class="highlighted-title">STORKS</div>
+        <div class="highlighted-description">
+          Starring: Andy Samberg, Jennifer Aniston, Ty Burrell Storks Official Trailer 3 (2016) - Andy Samberg Movie the company's top delivery stork, lands in hot water when the Baby Factory produces an unauthorized baby girl.
+        </div>
+        <div class="highlighted-details">
+          <div class="highlighted-release">
+            <div>Release On</div>
+            <div>Aug 1, 2016</div>
+          </div>
+          <div class="highlighted-genre">
+            <div>Genre</div>
+            <div>Drama | Adventure | Family</div>
+          </div>
+          <div class="highlighted-price">
+            <div>Price</div>
+            <div>15 Euro</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
 </body>
 </html>
