@@ -48,6 +48,7 @@
             padding: 20px;
             gap: 10px;
             overflow-x: auto; /* Optional: enables horizontal scroll */
+            display: flex;
         }
         .movie-item {
             flex: 0 0 auto;
@@ -87,6 +88,20 @@
         }
         .more-movies-btn:hover {
             background-color: #FF4081; /* Hover effect */
+            display: flex;
+            justify-content: center;
+        
+        }
+        /* Tabs styles */
+        .nav-tabs .nav-link {
+            color: white;
+            background-color: #FF0000; /* Red background for active tabs */
+        }
+        .nav-tabs .nav-link.active {
+            background-color: #FF4081; /* Light red for active tab */
+        }
+        .nav-tabs .nav-link:hover {
+            background-color: #FF0000; /* Red on hover */
         }
     </style>
 </head>
@@ -170,9 +185,20 @@
         </button>
     </div>
 
-    <!-- Featured Movies Section  -->
+    <!-- Featured Movies Section -->
     <div class="container featured-movies">
         <h2>Featured Movies</h2>
+        <ul class="nav nav-tabs justify-content-center mb-4">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Action</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Drama</a>
+            </li>
+        </ul>
         <div class="movie-container">
             <div class="movie-item">
                 <img src="https://via.placeholder.com/200x300" alt="Citizen Soldier">
@@ -210,53 +236,146 @@
                 <button class="btn btn-primary add-to-cart">Add to Cart</button>
             </div>
         </div>
-        
-    </div>
 
-    <div class="container featured-movies">
-        
-        <div class="movie-container">
-            <div class="movie-item">
-                <img src="https://via.placeholder.com/200x300" alt="Citizen Soldier">
-                <h5>Citizen Soldier</h5>
-                <p class="movie-genre">Genre: Action</p>
-                <p class="year">2016</p>
-                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+        <div class="container featured-movies">
+            
+            
+            <div class="movie-container">
+                <div class="movie-item">
+                    <img src="https://via.placeholder.com/200x300" alt="Citizen Soldier">
+                    <h5>Citizen Soldier</h5>
+                    <p class="movie-genre">Genre: Action</p>
+                    <p class="year">2016</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                </div>
+                <div class="movie-item">
+                    <img src="https://via.placeholder.com/200x300" alt="X-Men">
+                    <h5>X-Men</h5>
+                    <p class="movie-genre">Genre: Action</p>
+                    <p class="year">2000</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                </div>
+                <div class="movie-item">
+                    <img src="https://via.placeholder.com/200x300" alt="Greater">
+                    <h5>Greater</h5>
+                    <p class="movie-genre">Genre: Drama</p>
+                    <p class="year">2016</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                </div>
+                <div class="movie-item">
+                    <img src="https://via.placeholder.com/200x300" alt="Light & Oceans">
+                    <h5>Light & Oceans</h5>
+                    <p class="movie-genre">Genre: Adventure</p>
+                    <p class="year">2016</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                </div>
+                <div class="movie-item">
+                    <img src="https://via.placeholder.com/200x300" alt="The BFG">
+                    <h5>The BFG</h5>
+                    <p class="movie-genre">Genre: Family</p>
+                    <p class="year">2016</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                </div>
             </div>
-            <div class="movie-item">
-                <img src="https://via.placeholder.com/200x300" alt="X-Men">
-                <h5>X-Men</h5>
-                <p class="movie-genre">Genre: Action</p>
-                <p class="year">2000</p>
-                <button class="btn btn-primary add-to-cart">Add to Cart</button>
-            </div>
-            <div class="movie-item">
-                <img src="https://via.placeholder.com/200x300" alt="Greater">
-                <h5>Greater</h5>
-                <p class="movie-genre">Genre: Drama</p>
-                <p class="year">2016</p>
-                <button class="btn btn-primary add-to-cart">Add to Cart</button>
-            </div>
-            <div class="movie-item">
-                <img src="https://via.placeholder.com/200x300" alt="Light & Oceans">
-                <h5>Light & Oceans</h5>
-                <p class="movie-genre">Genre: Adventure</p>
-                <p class="year">2016</p>
-                <button class="btn btn-primary add-to-cart">Add to Cart</button>
-            </div>
-            <div class="movie-item">
-                <img src="https://via.placeholder.com/200x300" alt="The BFG">
-                <h5>The BFG</h5>
-                <p class="movie-genre">Genre: Family</p>
-                <p class="year">2016</p>
-                <button class="btn btn-primary add-to-cart">Add to Cart</button>
-            </div>
-        </div>
         <button class="more-movies-btn">Plus de films</button>
     </div>
 
-   
+    <div class="container featured-movies">
+        <h2>Featured Series TV</h2>
+        <ul class="nav nav-tabs justify-content-center mb-4">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">All</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Action</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Drama</a>
+            </li>
+        </ul>
+        <div class="movie-container">
+            <div class="movie-item">
+                <img src="https://via.placeholder.com/200x300" alt="Citizen Soldier">
+                <h5>Citizen Soldier</h5>
+                <p class="movie-genre">Genre: Action</p>
+                <p class="year">2016</p>
+                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+            </div>
+            <div class="movie-item">
+                <img src="https://via.placeholder.com/200x300" alt="X-Men">
+                <h5>X-Men</h5>
+                <p class="movie-genre">Genre: Action</p>
+                <p class="year">2000</p>
+                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+            </div>
+            <div class="movie-item">
+                <img src="https://via.placeholder.com/200x300" alt="Greater">
+                <h5>Greater</h5>
+                <p class="movie-genre">Genre: Drama</p>
+                <p class="year">2016</p>
+                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+            </div>
+            <div class="movie-item">
+                <img src="https://via.placeholder.com/200x300" alt="Light & Oceans">
+                <h5>Light & Oceans</h5>
+                <p class="movie-genre">Genre: Adventure</p>
+                <p class="year">2016</p>
+                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+            </div>
+            <div class="movie-item">
+                <img src="https://via.placeholder.com/200x300" alt="The BFG">
+                <h5>The BFG</h5>
+                <p class="movie-genre">Genre: Family</p>
+                <p class="year">2016</p>
+                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="container featured-movies">
+            
+            
+            <div class="movie-container">
+                <div class="movie-item">
+                    <img src="https://via.placeholder.com/200x300" alt="Citizen Soldier">
+                    <h5>Citizen Soldier</h5>
+                    <p class="movie-genre">Genre: Action</p>
+                    <p class="year">2016</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                </div>
+                <div class="movie-item">
+                    <img src="https://via.placeholder.com/200x300" alt="X-Men">
+                    <h5>X-Men</h5>
+                    <p class="movie-genre">Genre: Action</p>
+                    <p class="year">2000</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                </div>
+                <div class="movie-item">
+                    <img src="https://via.placeholder.com/200x300" alt="Greater">
+                    <h5>Greater</h5>
+                    <p class="movie-genre">Genre: Drama</p>
+                    <p class="year">2016</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                </div>
+                <div class="movie-item">
+                    <img src="https://via.placeholder.com/200x300" alt="Light & Oceans">
+                    <h5>Light & Oceans</h5>
+                    <p class="movie-genre">Genre: Adventure</p>
+                    <p class="year">2016</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                </div>
+                <div class="movie-item">
+                    <img src="https://via.placeholder.com/200x300" alt="The BFG">
+                    <h5>The BFG</h5>
+                    <p class="movie-genre">Genre: Family</p>
+                    <p class="year">2016</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        <button class="more-movies-btn">Plus de films</button>
+    </div>
+
     
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
