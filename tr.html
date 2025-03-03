@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afrocine</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Navbar styles */
+        .navbar {
+            background-color: #FF0000; /* Red color */
+        }
+        .navbar-brand img {
+            width: 40px; /* Adjust as needed */
+            height: auto;
+        }
+        .nav-link {
+            color: white !important;
+        }
+        .nav-link:hover {
+            color: #FF4081 !important; /* Hover color */
+        }
+        .dropdown-menu {
+            background-color: #FF0000; /* Dropdown background */
+        }
+        .dropdown-item {
+            color: white !important;
+        }
+        .dropdown-item:hover {
+            background-color: #FF4081 !important;
+        }
+        
+        /* Carousel styles */
+        .paragraphed-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 10;
+            font-weight: bold;
+            font-size: 70px;
+        }
+        
+        /* Section styles */
+        .section-header {
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 10px 0;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            color: #333;
+            text-align: left;
+            padding-left: 20px;
+            font-weight: bold;
+            border-right: 2px solid red;
+            display: inline-block;
+            padding-right: 20px;
+        }
+        
+        /* Movie container styles */
+        .movie-container {
+            display: flex;
+            padding: 10px;
+            gap: 10px;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .movie-item {
+            width: 180px;
+            margin: 10px;
+            flex: 0 0 auto;
+        }
+        
+        .movie-poster {
+            width: 100%;
+            height: 240px;
+            background-color: #4a4f54;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .movie-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .movie-info {
+            padding: 5px;
+            background-color: #f5f5f5;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .movie-title {
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .movie-genre {
+            font-size: 12px;
+            color: #FF4081;
+        }
+        
+        .movie-year {
+            font-size: 12px;
+            color: #777;
+            float: left;
+        }
+        
+        .movie-price {
+            font-size: 12px;
+            color: red;
+            float: right;
+            font-weight: bold;
+        }
+        
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+        
+        /* Highlighted movie styles */
+        .highlighted-movie {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 340px;
+            height: 400px;
+        }
+        
+        .highlighted-poster {
+            width: 100%;
+            height: 280px;
+            position: relative;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+        }
+        
+        .highlighted-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(217, 30, 24, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .play-button-triangle {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 15px solid white;
+            margin-left: 3px;
+        }
+        
+        .highlighted-info {
+            background-color: black;
+            color: white;
+            padding: 15px;
+            height: 120px;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .highlighted-title {
+            color: #d91e18;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .highlighted-description {
+            font-size: 12px;
+            margin-bottom: 10px;
+            max-height: 40px;
+            overflow: hidden;
+        }
+        
+        .highlighted-details {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .highlighted-release, .highlighted-genre, .highlighted-price {
+            font-size: 12px;
+        }
+        
+        /* Navigation arrows */
+        .nav-arrows {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+        
+        .arrow {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+        
+        /* Tag styles */
+        .new-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #ff8c00;
+            padding: 2px 5px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        /* Button styles */
+        .more-movies-btn {
+            display: block;
+            margin: 20px auto;
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .more-movies-btn:hover {
+            background-color: #FF4081;
+        }
+        
+        /* Footer styles */
+        .subscribe-section, .footer-content, .connect-us {
+            background-color: #111;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .highlighted-movie {
+                position: relative;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            .movie-container {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="path/to/your/logo.png" alt="Logo"> Afrocine
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Latest Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Featured Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Series TV</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Genres
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Comedy</a></li>
+                                <li><a class="dropdown-item" href="#">Western</a></li>
+                                <li><a class="dropdown-item" href="#">Fiction</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact Us</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Carousel -->
+    <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel" style="background-color: #121212;">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://br.web.img2.acsta.net/r_654_368/newsv7/20/06/12/18/16/2912051.jpg" class="d-block w-100" alt="Image 1" style="opacity: 0.2;">
+                <div class="paragraphed-text">
+                    <h3>LATEST MOVIES</h3>
+                    <p>In space no one hears stream</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.ytimg.com/vi/8x3reHoGPtc/maxresdefault.jpg" class="d-block w-100" alt="Image 2">
+                <div class="paragraphed-text">
+                    <h3>LATEST MOVIES</h3>
+                    <p>In the world of cinema, anything is possible!</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://resize.elle.fr/article/var/plain_site/storage/images/loisirs/cinema/dossiers/comedie-americaine/64205119-1-fre-FR/10-comedies-americaines-qui-nous-font-rire-a-tous-les-coups.jpg" class="d-block w-100" alt="Image 3">
+                <div class="paragraphed-text">
+                    <h3>LATEST MOVIES</h3>
+                    <p>Comedy, drama, and action await you!</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Featured Movies Section -->
+    <div class="container">
+        <div class="section-header">
+            <div class="section-title">FEATURED MOVIES</div>
+        </div>
+        
+        <div class="movie-container">
+            <div class="nav-arrows">
+                <span class="arrow">◀</span>
+                <span class="arrow">▶</span>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Citizen Soldier">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Citizen Soldier</div>
+                    <div class="movie-genre">Action</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">15 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="X-Men">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">X-Men</div>
+                    <div class="movie-genre">Action</div>
+                    <div class="movie-year">2000</div>
+                    <div class="movie-price">12 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Greater">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Greater</div>
+                    <div class="movie-genre">Drama</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">15 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Light & Oceans">
+                    <div class="new-tag">NEW</div>
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Light & Oceans</div>
+                    <div class="movie-genre">Adventure</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">15 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="The BFG">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">The BFG</div>
+                    <div class="movie-genre">Family</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">13 Euro</div>
+                </div>
+            </div>
+            
+            <div class="highlighted-movie">
+                <div class="highlighted-poster">
+                    <img src="https://via.placeholder.com/340x280" alt="Citizen Soldier">
+                    <div class="play-button">
+                        <div class="play-button-triangle"></div>
+                    </div>
+                </div>
+                <div class="highlighted-info">
+                    <div class="highlighted-title">CITIZEN SOLDIER</div>
+                    <div class="highlighted-description">
+                        Follow a group of soldiers who experience real war through their own eyes in this intense action drama. Their remarkable journey takes you from training to actual combat.
+                    </div>
+                    <div class="highlighted-details">
+                        <div class="highlighted-release">
+                            <div>Release On</div>
+                            <div>Aug 5, 2016</div>
+                        </div>
+                        <div class="highlighted-genre">
+                            <div>Genre</div>
+                            <div>Action | War | Drama</div>
+                        </div>
+                        <div class="highlighted-price">
+                            <div>Price</div>
+                            <div>15 Euro</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="more-movies-btn">Plus de films</button>
+    </div>
+
+    <!-- Featured Series TV Section -->
+    <div class="container">
+        <div class="section-header">
+            <div class="section-title">FEATURED SERIES TV</div>
+        </div>
+        
+        <div class="movie-container">
+            <div class="nav-arrows">
+                <span class="arrow">◀</span>
+                <span class="arrow">▶</span>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Breaking Bad">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Breaking Bad</div>
+                    <div class="movie-genre">Drama</div>
+                    <div class="movie-year">2008</div>
+                    <div class="movie-price">20 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Stranger Things">
+                    <div class="new-tag">NEW</div>
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Stranger Things</div>
+                    <div class="movie-genre">Sci-Fi</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">18 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Game of Thrones">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Game of Thrones</div>
+                    <div class="movie-genre">Fantasy</div>
+                    <div class="movie-year">2011</div>
+                    <div class="movie-price">25 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="The Crown">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">The Crown</div>
+                    <div class="movie-genre">Historical</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">15 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Westworld">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Westworld</div>
+                    <div class="movie-genre">Sci-Fi</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">16 Euro</div>
+                </div>
+            </div>
+            
+            <div class="highlighted-movie">
+                <div class="highlighted-poster">
+                    <img src="https://via.placeholder.com/340x280" alt="Stranger Things">
+                    <div class="play-button">
+                        <div class="play-button-triangle"></div>
+                    </div>
+                </div>
+                <div class="highlighted-info">
+                    <div class="highlighted-title">STRANGER THINGS</div>
+                    <div class="highlighted-description">
+                        When a young boy disappears, his mother, a police chief, and his friends must confront terrifying supernatural forces in order to get him back.
+                    </div>
+                    <div class="highlighted-details">
+                        <div class="highlighted-release">
+                            <div>Release On</div>
+                            <div>Jul 15, 2016</div>
+                        </div>
+                        <div class="highlighted-genre">
+                            <div>Genre</div>
+                            <div>Drama | Horror | Sci-Fi</div>
+                        </div>
+                        <div class="highlighted-price">
+                            <div>Price</div>
+                            <div>18 Euro</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="more-movies-btn">Plus de séries</button>
+    </div>
+
+    <!-- Shop Movies Section -->
+    <div class="container">
+        <div class="section-header">
+            <div class="section-title">SHOP MOVIES</div>
+        </div>
+        
+        <div class="movie-container">
+            <div class="nav-arrows">
+                <span class="arrow">◀</span>
+                <span class="arrow">▶</span>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Swiss Army Man">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Swiss Army Man</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">15 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Me Before You">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Me Before You</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">15 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Deadpool">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Deadpool</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">18 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Rogue One">
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Rogue One</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">20 Euro</div>
+                </div>
+            </div>
+            
+            <div class="movie-item">
+                <div class="movie-poster">
+                    <img src="https://via.placeholder.com/180x240" alt="Storks">
+                    <div class="new-tag">NEW</div>
+                </div>
+                <div class="movie-info clearfix">
+                    <div class="movie-title">Storks</div>
+                    <div class="movie-year">2016</div>
+                    <div class="movie-price">15 Euro</div>
+                </div>
+            </div>
+            
+            <div class="highlighted-movie">
+                <div class="highlighted-poster">
+                    <img src="https://via.placeholder.com/340x280" alt="Storks">
+                    <div class="play-button">
+                        <div class="play-button-triangle"></div>
+                    </div>
+                </div>
+                <div class="highlighted-info">
+                    <div class="highlighted-title">STORKS</div>
+                    <div class="highlighted-description">
+                        Starring: Andy Samberg, Jennifer Aniston, Ty Burrell. The company's top delivery stork lands in hot water when the Baby Factory produces an unauthorized baby girl.
+                    </div>
+                    <div class="highlighted-details">
+                        <div class="highlighted-release">
+                            <div>Release On</div>
+                            <div>Aug 1, 2016</div>
+                        </div>
+                        <div class="highlighted-genre">
+                            <div>Genre</div>
+                            <div>Drama | Adventure | Family</div>
+                        </div>
+                        <div class="highlighted-price">
+                            <div>Price</div>
+                            <div>15 Euro</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="more-movies-btn">Plus de films</button>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="container">
+        <div class="contact-header">
+            <h2>Contact Us</h2>
+        </div>
+        
+        <div class="contact-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="text" placeholder="FIRST NAME">
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="LAST NAME">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="email" placeholder="EMAIL">
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="SUBJECT">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <textarea placeholder="YOUR MESSAGE"></textarea>
+            </div>
+            
+            <div>
+                <button class="send-btn">Send Message</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subscribe Section -->
+    <div class="subscribe-section">
+        <div class="container">
+            <div class="subscribe-title">Subscribe to us</div>
+            <div class="subscribe-form">
+                <input type="email" placeholder="Enter your email..." class="subscribe-input">
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Section -->
+    <div class="footer-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="footer-title">Release</div>
+                    <ul class="footer-links">
+                        <li>2015</li>
+                        <li>2014</li>
+                        <li>2013</li>
+                        <li>2012</li>
+                        <li>2011</li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-2">
+                    <div class="footer-title">Movies</div>
+                    <ul class="footer-links">
+                        <li>ADVENTURE</li>
+                        <li>COMEDY</li>
+                        <li>FANTASY</li>
+                        <li>ACTION</li>
+                        <li>MOVIES</li>
+                        <li>HORROR</li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="footer-title">Review Movies</div>
+                    <div class="movie-tags">
+                        <span class="tag">Comedy</span>
+                        <span class="tag">Horror</span>
+                        <span class="tag">Historical</span>
+                        <span class="tag">Romantic</span>
+                    </div>
+                    <div class="movie-tags">
+                        <span class="tag">Love</span>
+                        <span class="tag">Action</span>
+                        <span class="tag">Reviews</span>
+                        <span class="tag">Comedy</span>
+                    </div>
+                </div>
+                
+                <div class="col-md-2">
+                    <div class="footer-title">Latest Movies</div>
+                    <div class="latest-movie">
+                        <div class="movie-thumbnail"></div>
+                        <div>Eveniet Ut Molestiae</div>
+                    </div>
+                    <div class="latest-movie">
+                        <div class="movie-thumbnail"></div>
+                        <div>Earum Rerum Tenetur</div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="site-title">Afro<span style="color:white;">CINE!</span></div>
+                    <div class="movie-posters">
+                        <div class="poster" style="background-image: url('https://via.placeholder.com/80x110')"></div>
+                        <div class="poster" style="background-image: url('https://via.placeholder.com/80x110')"></div>
+                        <div class="poster" style="background-image: url('https://via.placeholder.com/80x110')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Connect Us Section -->
+    <div class="connect-us">
+        <div class="container">
+            <div class="connect-title">Connect Us</div>
+            <div class="social-icons">
+                <div class="social-icon">f</div>
+                <div class="social-icon">t</div>
+                <div class="social-icon">in</div>
+                <div class="social-icon">g</div>
+                <div class="social-icon">g+</div>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#" class="back-to-top">↑</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
+</antArtif
